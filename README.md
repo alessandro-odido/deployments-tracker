@@ -72,3 +72,11 @@ To skip a repo, comment out its line.
 Re-running for a day replaces that day's rows for the repos processed and keeps rows for all other repos.
 
 Deployments that are still running when the script runs show as `in_progress`. To avoid this, run it for the previous day.
+
+## Dashboard
+
+```bash
+.venv/bin/streamlit run dashboard.py
+```
+
+The dashboard opens in your browser and reads every CSV in `output/`.
