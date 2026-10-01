@@ -13,6 +13,7 @@ from pathlib import Path
 import requests
 import yaml
 from dotenv import load_dotenv
+from tqdm import tqdm
 
 BASE_DIR = Path(__file__).resolve().parent
 API_URL = "https://api.github.com"
@@ -286,20 +287,23 @@ def main():
     rows_by_day = {first_day + timedelta(days=i): [] for i in range(args.days)}
     processed, failed = set(), []
 
-    for repo_cfg in repos:
+    print(f"Scanning PRs merged {first_day}..{args.date} in {len(repos)} repo(s)", file=sys.stderr)
+    progress = tqdm(repos, unit="repo", file=sys.stderr, dynamic_ncols=True)
+    for repo_cfg in progress:
         repo = repo_cfg["name"]
-        print(f"{repo}: scanning PRs merged to {repo_cfg['base_branch']} {first_day}..{args.date}", file=sys.stderr)
+        progress.set_description(repo.split("/")[-1])
         try:
             prs = merged_prs(gh, repo, repo_cfg["base_branch"], since, until)
             repo_rows = [build_row(gh, repo_cfg, pr) for pr in prs]
         except requests.HTTPError as e:
-            print(f"{repo}: failed: {e}", file=sys.stderr)
+            tqdm.write(f"{repo}: failed: {e}", file=sys.stderr)
             failed.append(repo)
             continue
         processed.add(repo)
         for row in repo_rows:
             rows_by_day[parse_ts(row["merged_at"]).date()].append(row)
-        print(f"{repo}: {len(repo_rows)} merged PR(s)", file=sys.stderr)
+        if repo_rows:
+            tqdm.write(f"{repo}: {len(repo_rows)} merged PR(s)", file=sys.stderr)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     for day, rows in rows_by_day.items():
