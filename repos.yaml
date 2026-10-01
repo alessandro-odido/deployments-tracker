@@ -1,0 +1,114 @@
+# Repositories to track. Each entry is "owner/name" or a mapping that overrides the defaults.
+defaults:
+  # Org used for entries given without an owner/ prefix.
+  owner: Odido-Datascience-BI-Analytics
+  base_branch: main
+  # GitHub deployment environment to match (e.g. deploy-higher-environments); null = any.
+  environment: deploy-higher-environments #null
+  # Workflow file names that count as deployments (e.g. [deploy.yml]); empty = all push workflows.
+  workflows: []
+
+repos:
+  # - repo-name
+  # - other-owner/repo-name
+  # - name: other-repo
+  #   environment: deploy-higher-environments
+  #   workflows: [deploy.yml]
+
+  # --- CDK (Python) ---
+  - tmnl-tina-platform-raw2qualify-optimization
+  - tmnl-tina-platform-glue-sftp-pull
+  - tmnl-tina-platform-dts
+  - tmnl-tina-platform-monitoring
+  - tmnl-tina-platform-cdk-core-infra
+  - tmnl-tina-platform-datashare
+  - tmnl-tina-platform-orchestrator-scheduler
+  - tmnl-tina-platform-vpc-dns-resolver-vpce
+  - tmnl-tina-platform-nrt-transformer
+  - tmnl-tina-platform-udf-access
+  - tmnl-tina-platform-pipeline-alembic-rds
+  # - tmnl-tina-platform-cicd-testing                       # testing
+  # - tmnl-tina-platform-github-self-hosted-runner          # poc
+  # - tmnl-tina-platform-raw2qualify-s3tables-integration   # poc
+  # - tmnl-tina-platform-dts-v2                             # poc, archived
+  # - tmnl-tina-platform-udf                                # poc, infra commented out
+  # - tmnl-tina-platform-raw2qualify-optimization-config    # archived
+  # - tmnl-tina-rs-docker-image-poc                         # poc
+  # - tmnl-tina-alembic-script-poc                          # poc
+  # - tmnl-tina-redshift-image-poc                          # poc
+
+  # --- CDK (TypeScript) ---
+  - tmnl-tina-platform-simpel-pre-processing
+  - tmnl-tina-platform-pipeline-alembic
+  - tmnl-tina-platform-airflow                              # unclear: poc or actual infra
+  - tmnl-tina-platform-redshift-catalog
+  - tmnl-tina-platform-cloud-data-spaces
+  - tmnl-tina-platform-cloud-data-spaces-studio
+  - tmnl-tina-platform-security-logging
+  - tmnl-tina-platform-shared-portfolios
+  - tmnl-tina-platform-redshift-audit
+  - tmnl-tina-platform-vending-machine-glue-cicd
+  - tmnl-tina-platform-cdklib
+  - tmnl-tina-platform-roles
+  - tmnl-tina-platform-audit
+  - tmnl-tina-platform-sharepoint-landing-zone
+  # - tmnl-tina-platform-vending-machine-permissions-api    # poc
+  # - tmnl-tina-platform-cloud-data-spaces-api              # archived
+  # - tmnl-tina-platform-utilities                          # archived
+  # - tmnl-tina-platform-vending-machine-redshift-users     # archived
+  # - tmnl-tina-platform-bss-enrichment-api                 # archived
+
+  # --- Terraform ---
+  - tmnl-tina-platform-rs-ss-network
+  - tmnl-tina-platform-rs-ss-marketing
+  - tmnl-tina-platform-rs-ss-reporting
+  - tmnl-tina-platform-rs-ss-ext-ippt
+  - tmnl-tina-platform-rs-ss-hightouch
+  - tmnl-tina-platform-flyway
+  - tmnl-tina-terraform-dms
+  - tmnl-tina-terraform-core-infra
+  - tmnl-tina-reusable-terraform-modules
+  - tmnl-tina-terraform-udf
+  # - tmnl-tina-platform-rs-ss-flyway-cicd                  # demo
+  # - tmnl-tina-platform-flyway-poc                         # demo, poc
+  # - tmnl-tina-terraform-appflow                           # poc
+  # - tmnl-tina-terraform-multiple-tf-states                # template, deployment test
+  # - tmnl-tina-ddogs-tf-repo-tfstate                       # empty
+  # - tmnl-tina-ddogs-tf-repo-tfstate-v1                    # empty
+  # - tmnl-tina-ddogs-tf-repo-tfstate-v2                    # empty
+  # - tmnl-tina-tf-single-state-template                    # empty, template
+  # - tmnl-tina-ddogs-tf-test-repo                          # empty, test
+  # - tmnl-tina-terraform-template-repo                     # template
+
+  # --- CloudFormation ---
+  - tmnl-tina-platform-core-infra
+  - tmnl-tina-platform-data-ql
+  - tmnl-tina-platform-s3-ifsf-infra
+  - tmnl-tina-platform-sql-parser
+  - tmnl-tina-platform-sftp-push                            # unclear: very old, listed as poc under CDK_TS
+
+  # --- Docs / no infra ---
+  - tmnl-tina-docs-technical-decisions
+  - tmnl-tina-reusable-workflow
+  - tmnl-tina-repo-generator
+  - tmnl-tina-platform-alembic
+  - tmnl-tina-platform-monitoring-config
+  - tmnl-tina-platform-tmnltinalib-sfif-cdc
+  - tmnl-tina-platform-tmnltinalib-unittest
+  - tmnl-tina-platform-tmnltinalib
+  - tmnl-tina-platform-bytebase
+  - tmnl-tina-ddogs-scripts
+  - tmnl-tina-cicd-templates
+  - tmnl-tina-docs-sso-permission-sets
+  # - tmnl-tina-ddogs-poc-repo                              # poc, empty
+  # - tmnl-tina-ITOPS-Newsletter                            # archived
+  # - tobe-deleted-tmnl-tina-tf-module-external-connection  # to be deleted
+  # - tmnl-tina-aws-managed-runner-test                     # empty, test
+  # - tmnl-tina-template-repository                         # template
+  # - tmnl-tina-demo-123451                                 # demo
+  # - tmnl-tina-github-connection-test                      # archived, test
+  # - tmnl-tina-cft-template-repo                           # template
+  # - tmnl-tina-artifact-template-repo                      # template
+  # - tmnl-tina-cdk-py-template-repo                        # template
+  # - tmnl-tina-cdk-typescript-demo                         # demo
+  # - tmnl-tina-cdk-ts-template-repo                        # template
