@@ -1,4 +1,4 @@
-# tracking-deployments
+# deployments-tracker
 
 Lists PRs merged to `main` in a set of GitHub repos, along with the deployment each merge triggered. Results go to one CSV per day in `output/YYYY-MM-DD.csv`.
 
