@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -78,15 +79,24 @@ c4.metric("Pending", int((filtered["outcome"] == "pending").sum()))
 c5.metric("Success rate", f"{success_rate:.0f}%" if success_rate is not None else "n/a")
 c6.metric("Median merge → deploy", f"{filtered['merge_to_deploy_min'].median():.0f} min" if filtered["merge_to_deploy_min"].notna().any() else "n/a")
 
-left, right = st.columns(2)
-with left:
-    st.subheader("Merges per day")
-    daily = filtered.groupby(["date", "deployment_status"]).size().reset_index(name="count")
-    st.bar_chart(daily, x="date", y="count", color="deployment_status")
-with right:
-    st.subheader("Merges per repo")
-    per_repo = filtered.groupby(["repo_short", "deployment_status"]).size().reset_index(name="count")
-    st.bar_chart(per_repo, x="repo_short", y="count", color="deployment_status", horizontal=True)
+st.subheader("Merges per day")
+daily = filtered.groupby(["date", "deployment_status"]).size().reset_index(name="count")
+st.bar_chart(daily, x="date", y="count", color="deployment_status")
+
+st.subheader("Merges per repo")
+per_repo = filtered.groupby(["repo_short", "deployment_status"]).size().reset_index(name="count")
+# labelLimit=0 keeps the full repo name from being truncated on the axis.
+repo_chart = (
+    alt.Chart(per_repo)
+    .mark_bar()
+    .encode(
+        x=alt.X("count:Q", title="count"),
+        y=alt.Y("repo_short:N", title="repo", sort="-x", axis=alt.Axis(labelLimit=0)),
+        color="deployment_status:N",
+    )
+    .properties(height=max(300, 28 * per_repo["repo_short"].nunique()))
+)
+st.altair_chart(repo_chart, use_container_width=True)
 
 left, right = st.columns(2)
 with left:
